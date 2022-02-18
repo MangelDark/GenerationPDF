@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Interoperability", "CA1416:Validar la compatibilidad de la plataforma", Justification = "<pendiente>", Scope = "member", Target = "~M:GenerationPDF.Controllers.CreatePDFController.Get~Microsoft.AspNetCore.Mvc.ActionResult{System.Collections.Generic.IEnumerable{GenerationPDF.Model.PrinterModel}}")]
+[assembly: SuppressMessage("Interoperability", "CA1416:Validar la compatibilidad de la plataforma", Justification = "<pendiente>", Scope = "member", Target = "~M:GenerationPDF.Util.GenerateCodeBar.GenerarBarCode(System.String,System.String)")]

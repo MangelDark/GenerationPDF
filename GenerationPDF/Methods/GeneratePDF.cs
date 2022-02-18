@@ -8,7 +8,7 @@ using System;
 using System.Globalization;
 using System.IO;
 
-namespace GenerationPDF.Util
+namespace GenerationPDF.Methods
 {
     public class GeneratePDF : IGeneratePDF
     {

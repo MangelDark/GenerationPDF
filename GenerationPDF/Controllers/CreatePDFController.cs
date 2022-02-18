@@ -1,28 +1,33 @@
 ﻿using GenerationPDF.Interface;
 using GenerationPDF.Model;
-using GenerationPDF.Util;
+using GenerationPDF.Methods;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Management;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GenerationPDF.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class CreatePDFController : ControllerBase
     {
 
         private readonly IGeneratePDF _generatePDF;
-        public CreatePDFController(IGeneratePDF generatePDF)
+        private readonly IGenerateCodeBar _generateCodeBar;
+        public CreatePDFController(IGeneratePDF generatePDF, IGenerateCodeBar generateCodeBar)
         {
             _generatePDF = generatePDF;
+            _generateCodeBar = generateCodeBar;
         }
         // GET: api/<CreatePDFController>
         [HttpGet]
-        public ActionResult<IEnumerable<PrinterModel>> Get()
+        [Route("ListPrintes")]
+        public ActionResult<IEnumerable<PrinterModel>> ListPrintes()
         {
 
             List<PrinterModel> prList = new List<PrinterModel>();
@@ -58,23 +63,22 @@ namespace GenerationPDF.Controllers
 
         // POST api/<CreatePDFController>
         [HttpPost]
-        public ActionResult Post([FromBody] InformationPDF model)
+        [Route("PrinterDocumentPDF")]
+        public ActionResult PrinterDocumentPDF(InformationPDF model)
         {        
                
             var result = _generatePDF.GenerateDocumentPDF(model);
             return Ok(result);
         }
-
-        // PUT api/<CreatePDFController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // POST api/<CreatePDFController>
+        [HttpPost]
+        [Route("PrinterCodeBar")]
+        public ActionResult PrinterCodeBar([FromBody] PrinterCodeBar model)
         {
-        }
 
-        // DELETE api/<CreatePDFController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var result = _generateCodeBar.GenerarBarCode(model);
+            return Ok(result);
         }
+      
     }
 }
